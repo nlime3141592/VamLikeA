@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Unchord
 {
-    [CreateAssetMenu(fileName = "New Spawner", menuName = "ScriptableObjects/Game Parameter/Spawner", order = 3)]
+    [CreateAssetMenu(fileName = "New Spawner", menuName = "ScriptableObjects/Game Management/Spawner", order = (int)GameManagerAssetMenuOrder.SpawnerSO)]
     public class SpawnerSO : ScriptableObject
     {
         public List<SpawnData> spawnDataList;

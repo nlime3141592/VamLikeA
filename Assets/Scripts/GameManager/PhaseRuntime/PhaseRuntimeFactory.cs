@@ -8,6 +8,8 @@ namespace Unchord
         {
             if (phaseSO is BossPhaseSO)
                 return new BossPhaseRuntime(phaseSO as BossPhaseSO, gameManagerProperties);
+            else if (phaseSO is StageSO)
+                return new StageRuntime(phaseSO as StageSO, gameManagerProperties);
             else if (phaseSO is PhaseCompositeSO)
                 return new PhaseCompositeRuntime(phaseSO as PhaseCompositeSO, gameManagerProperties);
             else if (phaseSO is SurvivalPhaseSO)
