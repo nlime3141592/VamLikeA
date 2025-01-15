@@ -8,6 +8,7 @@ namespace Unchord
         : base(phaseSO, properties)
         {
             _map = Map.Create(phaseSO.mapSO);
+            _map.transform.parent = properties.RuntimeContainer;
         }
 
         public override void Update()

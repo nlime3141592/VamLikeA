@@ -16,6 +16,8 @@ namespace Unchord
 
         private float _totalPlaytime;
         private float _elapsablePhasePlaytime;
+        private int _killCount;
+        private int _gold;
 
         private bool _blockingEventFlag;
         private float _blockingEventHandlingCooltimeLeft;
@@ -27,6 +29,8 @@ namespace Unchord
 
         private Camera _mainCamera;
         private TestPlayer _testPlayer;
+
+        private Transform _runtimeContainer;
 
         public void Subscribe(TestPlayer testPlayer)
         {
@@ -63,11 +67,15 @@ namespace Unchord
             _blockingEventHandlers = new Queue<IEnumerator>(INITIAL_EVENT_CAPACITY);
             properties = new GameManager.Properties(this);
             _mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+
+            _runtimeContainer = new GameObject("@Runtime Container").transform;
+
+            DontDestroyOnLoad(_runtimeContainer);
         }
 
         private void Start()
         {
-            StartGame();
+            
         }
 
         private void Update()
@@ -85,12 +93,33 @@ namespace Unchord
                 return;
 
             _isGameStarted = true;
+
             StartPhaseRuntimeTree("Phases/Test/New Stage");
+            CreatePlayer("TestPlayer");
+            _mainCamera.transform.position = 10.0f * Vector3.back;
+        }
+
+        private void CreatePlayer(string resourcePath)
+        {
+            GameObject resource = Resources.Load(resourcePath) as GameObject;
+            GameObject instance = GameObject.Instantiate(resource);
+            instance.name = "Player";
+            instance.transform.parent = _runtimeContainer.transform;
+            instance.transform.position = Vector3.zero;
         }
 
         public void EndGame()
         {
             _isGameStarted = false;
+
+            Transform[] children = _runtimeContainer.GetComponentsInChildren<Transform>();
+
+            for (int i = 0; i < children.Length; ++i)
+            {
+                Destroy(children[i].gameObject);
+            }
+
+            UIManager.Instance.GameResultCanvas.Show();
         }
 
         public void PublishEvent(IEnumerator eventHandler)

@@ -1,4 +1,3 @@
-/*
 namespace Unchord
 {
     public class SoundManager : Singleton<SoundManager>
@@ -18,4 +17,3 @@ namespace Unchord
         }
     }
 }
-*/

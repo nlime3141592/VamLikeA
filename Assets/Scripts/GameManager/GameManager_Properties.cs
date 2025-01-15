@@ -13,6 +13,9 @@ namespace Unchord
             public PhaseRuntimeState PhaseExecutionResult => _gm._phaseExecutionResult;
             public bool BlockingEventFlag => _gm._blockingEventFlag;
             public Camera MainCamera => _gm._mainCamera;
+            public int KillCount => _gm._killCount;
+            public int Gold => _gm._gold;
+            public Transform RuntimeContainer => _gm._runtimeContainer;
             #endregion
 
             #region Write Only Properties

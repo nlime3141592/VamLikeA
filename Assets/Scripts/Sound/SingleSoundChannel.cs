@@ -1,4 +1,3 @@
-/*
 using FMOD;
 using FMOD.Studio;
 
@@ -11,13 +10,10 @@ namespace Unchord
 
         public override void ChangeVolume(float _volume)
         {
-            UnityEngine.Debug.Assert(!base.IsPaused, "Cannot change volume when sound channel paused.");
             UnityEngine.Debug.Assert(_volume >= 0.0f && _volume <= 1.0f, "Volume should be between 0 and 1");
 
-            if (m_soundEventInstance.setVolume(_volume) == RESULT.OK)
-                base.Volume = _volume;
-            else
-                UnityEngine.Debug.Log("Cannot set volume.");
+            m_soundEventInstance.setVolume(_volume);
+            base.Volume = _volume;
         }
 
         public override void SetPause(bool _isPaused)
@@ -60,4 +56,3 @@ namespace Unchord
         }
     }
 }
-*/
